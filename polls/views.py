@@ -29,9 +29,8 @@ class DetailView(generic.DetailView):
         """
         Excludes any questions that aren't published yet.
         """
-        return Question.objects.all()
-
-
+        return Question.objects.filter(pub_date__gte=timezone.now())
+        
 class ResultsView(generic.DetailView):
     model = Question
     template_name = 'polls/results.html'
