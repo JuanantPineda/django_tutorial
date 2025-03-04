@@ -1,7 +1,7 @@
 pipeline {
     environment {
         IMAGEN = "juanantpineda/django_tutorial"
-        USUARIO = 'juanantpineda'
+        USUARIO = 'USER_DOCKERHUB'
     }
     agent none
     stages {
