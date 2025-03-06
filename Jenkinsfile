@@ -58,20 +58,20 @@ pipeline {
                 }
             }
         }
-    }
         stage ('Despliegue') {
             agent any
             stages {
-                stage ('Despliegue de django_tutorial en la VPS'){
+                stage ('Despliegue django_publicaciones'){
                     steps{
                         sshagent(credentials : ['SSH_KEY']) {
-                        sh 'ssh -o StrictHostKeyChecking=no debian@luffy.juanpiece.es "cd django_tutorial && git pull && docker compose down && docker pull fjhuete/polls:latest && docker compose up -d"'
+                        sh 'ssh -o StrictHostKeyChecking=no debian@luffy.juanpiece.es "cd django_tutorial && git pull && docker compose down && docker pull juanantpineda/django_tutorial:latest && docker compose up -d"'
                         }
                     }
                 }
             }
         }
-    } 
+    }
+    
     post {
         always {
         mail to: 'juanantpiama@gmail.com',
