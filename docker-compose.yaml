@@ -1,0 +1,32 @@
+version: '2.2'
+services:
+  app:
+    container_name: contenedor_django
+    image: juanantpineda/django_tutorial:latest
+    restart: always
+    environment:
+      DB_NAME: django
+      DB_USER: django
+      DB_PASSWORD: django
+      DB_HOST: db
+      DJ_USER: django
+      DJ_PASSWORD: django
+      DJ_EMAIL: django@django.es
+      URL: https://jenkills.juanpiece.es
+    ports:
+      - 8088:3000
+    depends_on:
+      - db
+  db:
+    container_name: servidor_mysql3
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_DATABASE: django
+      MYSQL_USER: django
+      MYSQL_PASSWORD: django
+      MYSQL_ROOT_PASSWORD: django
+    volumes:
+      - mariadb_data1:/var/lib/mysql
+volumes:
+    mariadb_data1:

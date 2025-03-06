@@ -46,6 +46,7 @@ pipeline {
                         script {
                             docker.withRegistry( '', USUARIO ) {
                                 newApp.push()
+                                newApp.push("latest")
                             }
                         }
                     }
@@ -58,6 +59,19 @@ pipeline {
             }
         }
     }
+        stage ('Despliegue') {
+            agent any
+            stages {
+                stage ('Despliegue de django_tutorial en la VPS'){
+                    steps{
+                        sshagent(credentials : ['SSH_KEY']) {
+                        sh 'ssh -o StrictHostKeyChecking=no debian@luffy.juanpiece.es "cd django_tutorial && git pull && docker compose down && docker pull fjhuete/polls:latest && docker compose up -d"'
+                        }
+                    }
+                }
+            }
+        }
+    } 
     post {
         always {
         mail to: 'juanantpiama@gmail.com',
